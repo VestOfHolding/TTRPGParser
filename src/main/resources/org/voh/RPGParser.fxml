@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import org.fxmisc.richtext.CodeArea?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.voh.MainAppController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane id="parentSplitPane" fx:id="mainAppWindow" dividerPositions="0.2, 0.6" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane id="controlPane">
+               <children>
+                  <Button id="pdfBrose" fx:id="browseButton" layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" onAction="#onBrowseClicked" prefHeight="25.0" prefWidth="68.0" text="Browse..." AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <Label id="fileName" fx:id="pdfFileNameLabel" layoutX="11.0" layoutY="36.0" prefHeight="17.0" prefWidth="166.0" text="PDF File Name" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="36.0" />
+                  <Label layoutY="48.0" text="Pages:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="65.0" />
+                  <TextField id="startPage" fx:id="startPageBox" layoutX="42.0" layoutY="52.0" prefHeight="25.0" prefWidth="40.0" promptText="0" text="0" AnchorPane.leftAnchor="44.0" AnchorPane.topAnchor="60.0" />
+                  <Label layoutX="81.0" layoutY="65.0" text="to" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="65.0" />
+                  <TextField id="endPage" fx:id="endPageBox" layoutX="102.0" layoutY="52.0" prefHeight="25.0" prefWidth="40.0" promptText="0" text="0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="60.0" />
+                  <Button id="processPDF" fx:id="processPDFButton" disable="true" layoutX="4.0" layoutY="92.0" mnemonicParsing="false" onAction="#onProcessPDFClicked" prefHeight="25.0" prefWidth="81.0" text="Process PDF" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="95.0" />
+                  <Line endX="60.0" layoutX="60.0" layoutY="135.0" startX="-100.0" stroke="#9a9a9a" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Label layoutX="11.0" layoutY="142.0" text="System:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="145.0" />
+                  <ComboBox id="systemChoice" fx:id="systemDropdown" layoutX="-5.0" layoutY="162.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Label layoutX="4.0" layoutY="196.0" text="Publisher:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="200.0" />
+                  <ComboBox id="publisherChoice" fx:id="publisherDropdown" layoutX="-7.0" layoutY="218.0" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+               </children>
+        </AnchorPane>
+        <AnchorPane id="inputPane" prefHeight="583.0" prefWidth="341.0">
+               <children>
+                  <Label text="Input" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <CodeArea id="inputBox" fx:id="inputBox" layoutY="37.333333333333336" prefHeight="530.0" prefWidth="342.0" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+                  <Button id="inputParse" fx:id="parseInputButton" graphicTextGap="1.0" layoutX="136.0" mnemonicParsing="false" onAction="#onParseInputClicked" prefHeight="27.0" prefWidth="163.0" text="Parse Input" AnchorPane.bottomAnchor="543.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Button>
+               </children>
+        </AnchorPane>
+            <AnchorPane id="outputPane" layoutX="10.0" layoutY="10.0" prefHeight="550.0" prefWidth="298.0">
+               <children>
+                  <Label layoutX="9.0" layoutY="6.0" text="Output" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <CodeArea id="outputBox" fx:id="outputBox" editable="false" layoutX="10.0" layoutY="24.0" prefHeight="533.0" prefWidth="335.0" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+               </children>
+            </AnchorPane>
+      </items>
+    </SplitPane>
+  </children>
+</VBox>

@@ -1,0 +1,25 @@
+.code-area .paragraph-box .text {
+    -fx-font-size: 18px;
+}
+.code-area .paragraph-box .text.match {
+    -rtfx-background-color: #00000033;
+}
+.code-area .tagmark {
+    -fx-fill: gray;
+}
+.code-area .anytag {
+    -fx-fill: crimson;
+}
+.code-area .paren {
+    -fx-fill: firebrick;
+    -fx-font-weight: bold;
+}
+.code-area .attribute {
+    -fx-fill: darkviolet;
+}
+.code-area .avalue {
+    -fx-fill: black;
+}
+.code-area .comment {
+	-fx-fill: teal;
+}
