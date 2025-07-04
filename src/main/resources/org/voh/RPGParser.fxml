@@ -76,7 +76,7 @@
       <items>
         <AnchorPane id="controlPane">
                <children>
-                  <Button id="pdfBrose" fx:id="browseButton" layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" onAction="#onBrowseClicked" prefHeight="25.0" prefWidth="68.0" text="Browse..." AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <Button id="pdfBrowse" fx:id="browseButton" layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" onAction="#onBrowseClicked" prefHeight="25.0" prefWidth="68.0" text="Browse..." AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                   <Label id="fileName" fx:id="pdfFileNameLabel" layoutX="11.0" layoutY="36.0" prefHeight="17.0" prefWidth="166.0" text="PDF File Name" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="36.0" />
                   <Label layoutY="48.0" text="Pages:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="65.0" />
                   <TextField id="startPage" fx:id="startPageBox" layoutX="42.0" layoutY="52.0" prefHeight="25.0" prefWidth="40.0" promptText="0" text="0" AnchorPane.leftAnchor="44.0" AnchorPane.topAnchor="60.0" />
@@ -112,6 +112,11 @@
                      </font>
                   </Label>
                   <CodeArea id="outputBox" fx:id="outputBox" editable="false" layoutX="10.0" layoutY="24.0" prefHeight="533.0" prefWidth="335.0" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+                  <Button id="outputCopy" fx:id="outputCopyButton" graphicTextGap="1.0" layoutX="220.0" layoutY="5.0" mnemonicParsing="false" onAction="#onOutputCopyClicked" prefHeight="27.0" prefWidth="163.0" text="Copy to Clipboard" AnchorPane.bottomAnchor="543.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
       </items>

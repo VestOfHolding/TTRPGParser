@@ -56,12 +56,13 @@ public class MainAppController {
 
     @FXML
     public Button parseInputButton;
-
     @FXML
     public CodeArea inputBox;
 
     @FXML
     public CodeArea outputBox;
+    @FXML
+    public Button outputCopyButton;
 
     private File pdfFile = null;
 
@@ -135,6 +136,13 @@ public class MainAppController {
     }
 
     @FXML
+    public void onOutputCopyClicked(ActionEvent actionEvent) {
+        outputBox.selectAll();
+        outputBox.copy();
+        outputBox.deselect();
+    }
+
+    @FXML
     public void initialize() {
         systemDropdown.setItems(FXCollections.observableArrayList(SupportedSystems.displayNames()));
         systemDropdown.getSelectionModel().select(SupportedSystems.defaultDisplayName());
@@ -173,4 +181,6 @@ public class MainAppController {
         spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
         return spansBuilder.create();
     }
+
+
 }
