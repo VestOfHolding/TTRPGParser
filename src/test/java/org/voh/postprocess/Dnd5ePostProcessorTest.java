@@ -1,4 +1,4 @@
-package org.voh.postprocess.dnd5e;
+package org.voh.postprocess;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

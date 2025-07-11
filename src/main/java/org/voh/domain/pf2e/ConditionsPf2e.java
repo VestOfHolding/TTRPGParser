@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @AllArgsConstructor
@@ -63,11 +66,18 @@ public enum ConditionsPf2e {
     }
 
     // build a regex alternation of all display names (escaped)
-    private static final String NAME_REGEX = Arrays.stream(values())
+    public static final String NAME_REGEX = Arrays.stream(values())
             .map(c -> Pattern.quote(c.displayName))
             .collect(Collectors.joining("|"));
 
     public static final Pattern PATTERN =
             Pattern.compile("(?i)\\b(" + NAME_REGEX + ")(?: (\\d))?\\b");
+
+    public static final Map<String, ConditionsPf2e> BY_NAME =
+            Stream.of(ConditionsPf2e.values())
+                    .collect(Collectors.toMap(
+                            c -> c.getDisplayName().toLowerCase(),
+                            c -> c
+                    ));
 }
 

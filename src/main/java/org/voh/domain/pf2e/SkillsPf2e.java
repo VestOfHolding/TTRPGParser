@@ -30,18 +30,18 @@ public enum SkillsPf2e {
     THIEVERY;
 
     public String getEnricher() {
-        return "@Check[" + name() + "]";
+        return "@Check[" + name().toLowerCase() + "]";
     }
 
     public String getEnricher(String dc) {
-        return "@Check[" + name() + "|dc:" + dc + "]";
+        return "@Check[" + name().toLowerCase() + "|dc:" + dc + "]";
     }
 
     public static final String NAME_REGEX = Arrays.stream(values())
             .map(Enum::name)
             .collect(Collectors.joining("|")) + "|Lore\\([^)]*\\)";
 
-    private static final Pattern SKILL_CHECK = Pattern.compile(
+    public static final Pattern SKILL_CHECK = Pattern.compile(
             "(?ix)" + // ignore-case + free-spacing
                     "\\b" + // word-boundary
                     "(?:(?:succeed(?:s|ing)?\\s+on|" + // "succeed on", "succeeds on", "succeeding on"
@@ -50,7 +50,7 @@ public enum SkillsPf2e {
                     "a\\s+successful)\\s+)?" + // "a successful"
                     "(?:DC\\s*(\\d{1,3})\\s+)?" + // optional "DC 15 ", group(1)=15
                     "(" + NAME_REGEX + ")" + // group(2)=skill name
-                    "\\s+check\\b"    // " check" + word-boundary
+                    "(?:\\s+check)?\\b"    // " check" + word-boundary
     );
 
     public static final Map<String, SkillsPf2e> BY_NAME = Arrays.stream(values())

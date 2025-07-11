@@ -14,7 +14,7 @@ import org.voh.domain.PublisherConfig;
 import org.voh.domain.SupportedSystems;
 import org.voh.postprocess.PdfGeneralPostProcessor;
 import org.voh.postprocess.PlainInputPostProcessor;
-import org.voh.postprocess.dnd5e.Dnd5ePostProcessor;
+import org.voh.postprocess.Dnd5ePostProcessor;
 import org.voh.stripper.RegionalPdfHtmlStripper;
 
 import java.io.File;
