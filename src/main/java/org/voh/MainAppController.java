@@ -15,6 +15,7 @@ import org.voh.domain.SupportedSystems;
 import org.voh.postprocess.PdfGeneralPostProcessor;
 import org.voh.postprocess.PlainInputPostProcessor;
 import org.voh.postprocess.Dnd5ePostProcessor;
+import org.voh.postprocess.pf2e.Pf2ePostProcessor;
 import org.voh.stripper.RegionalPdfHtmlStripper;
 
 import java.io.File;
@@ -118,8 +119,10 @@ public class MainAppController {
         text = PdfGeneralPostProcessor.fullProcess(text);
 
         SupportedSystems system = SupportedSystems.fromDisplayName(systemDropdown.getValue());
-        if (system == SupportedSystems.DND_5E)
-            text = Dnd5ePostProcessor.postProcess(text);
+        switch (system) {
+            case DND_5E -> text = Dnd5ePostProcessor.postProcess(text);
+            case PF_2E -> text = Pf2ePostProcessor.postProcess(text);
+        }
 
         outputBox.replaceText(text);
     }
@@ -129,8 +132,10 @@ public class MainAppController {
         String inputContent = PlainInputPostProcessor.parseInput(inputBox.getText());
 
         SupportedSystems system = SupportedSystems.fromDisplayName(systemDropdown.getValue());
-        if (system == SupportedSystems.DND_5E)
-            inputContent = Dnd5ePostProcessor.postProcess(inputContent);
+        switch (system) {
+            case DND_5E -> inputContent = Dnd5ePostProcessor.postProcess(inputContent);
+            case PF_2E -> inputContent = Pf2ePostProcessor.postProcess(inputContent);
+        }
 
         outputBox.replaceText(inputContent);
     }
