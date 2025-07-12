@@ -52,4 +52,7 @@ This is primarily designed as an aid for converting tabletop RPG PDFs into HTML 
 ### 1. Run without packaging
 
 ```bash
-mvn clean javafx:run
+mvn clean package
+```
+
+Then run either `run.bat` if you're on Windows or `run.sh` if you're on Mac or Linux.

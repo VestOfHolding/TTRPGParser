@@ -118,12 +118,7 @@ public class MainAppController {
                 pdfFile, startPage, endPage, PublisherConfig.getFromName(publisherDropdown.getValue()));
         text = PdfGeneralPostProcessor.fullProcess(text);
 
-        SupportedSystems system = SupportedSystems.fromDisplayName(systemDropdown.getValue());
-        switch (system) {
-            case DND_5E -> text = Dnd5ePostProcessor.postProcess(text);
-            case PF_2E -> text = Pf2ePostProcessor.postProcess(text);
-        }
-
+        text = trySystemParsing(text);
         outputBox.replaceText(text);
     }
 
@@ -131,13 +126,17 @@ public class MainAppController {
     public void onParseInputClicked(ActionEvent actionEvent) {
         String inputContent = PlainInputPostProcessor.parseInput(inputBox.getText());
 
+        inputContent = trySystemParsing(inputContent);
+        outputBox.replaceText(inputContent);
+    }
+
+    private String trySystemParsing(String text) {
         SupportedSystems system = SupportedSystems.fromDisplayName(systemDropdown.getValue());
         switch (system) {
-            case DND_5E -> inputContent = Dnd5ePostProcessor.postProcess(inputContent);
-            case PF_2E -> inputContent = Pf2ePostProcessor.postProcess(inputContent);
+            case DND_5E -> text = Dnd5ePostProcessor.postProcess(text);
+            case PF_2E -> text = Pf2ePostProcessor.postProcess(text);
         }
-
-        outputBox.replaceText(inputContent);
+        return text;
     }
 
     @FXML
