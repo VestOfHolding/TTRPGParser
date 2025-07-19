@@ -117,6 +117,90 @@ class Dnd5ePostProcessorTest {
         assertEquals(in, out);
     }
 
+    //–– Duration Enricher Tests ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+    @Test
+    void testEnrichDurationRounds() {
+        assertEquals(
+                "The poison lasts [[/r 1d4 #rounds]]{1d4 rounds}.",
+                Dnd5ePostProcessor.enrichDuration("The poison lasts 1d4 rounds.")
+        );
+    }
+
+    @Test
+    void testEnrichDurationMinutes() {
+        assertEquals(
+                "Effect lasts [[/r 2d6 #minutes]]{2d6 minutes}.",
+                Dnd5ePostProcessor.enrichDuration("Effect lasts 2d6 minutes.")
+        );
+    }
+
+    @Test
+    void testEnrichDurationHours() {
+        assertEquals(
+                "Stunned for [[/r 3d8 #hours]]{3d8 hours}.",
+                Dnd5ePostProcessor.enrichDuration("Stunned for 3d8 hours.")
+        );
+    }
+
+    @Test
+    void testEnrichDurationDays() {
+        assertEquals(
+                "Frozen for [[/r 1d10 #days]]{1d10 days}.",
+                Dnd5ePostProcessor.enrichDuration("Frozen for 1d10 days.")
+        );
+    }
+
+    //–– Attack  Enricher Tests ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+    @Test
+    void testEnrichAttackDiceWithType() {
+        assertEquals(
+                "Deals [[/damage 2d6 fire]].",
+                Dnd5ePostProcessor.enrichAttacks("Deals 2d6 fire damage.")
+        );
+    }
+
+    @Test
+    void testEnrichAttackDiceWithBonusAndType() {
+        assertEquals(
+                "Deals [[/damage 2d6+3 fire]].",
+                Dnd5ePostProcessor.enrichAttacks("Deals 2d6+3 fire damage.")
+        );
+    }
+
+    @Test
+    void testEnrichAttackFlatDamage() {
+        assertEquals(
+                "Takes [[/damage 5 acid]].",
+                Dnd5ePostProcessor.enrichAttacks("Takes 5 acid damage.")
+        );
+    }
+
+    @Test
+    void testEnrichAttackDiceWithTypeAndComma() {
+        assertEquals(
+                "Hit for [[/damage 1d8 cold]], and runs.",
+                Dnd5ePostProcessor.enrichAttacks("Hit for 1d8 cold, and runs.")
+        );
+    }
+
+    @Test
+    void testEnrichAttackDiceOnly() {
+        assertEquals(
+                "Hit with [[/damage 2d6]].",
+                Dnd5ePostProcessor.enrichAttacks("Hit with 2d6 damage.")
+        );
+    }
+
+    @Test
+    void testEnrichAttackDiceWithTypeAndPeriod() {
+        assertEquals(
+                "Another [[/damage 2d6 cold]].",
+                Dnd5ePostProcessor.enrichAttacks("Another 2d6 cold.")
+        );
+    }
+
     //–– Full Pipeline via postProcess(…) –––––––––––––––––––––––––––––––––––––––––
 
     @Test
