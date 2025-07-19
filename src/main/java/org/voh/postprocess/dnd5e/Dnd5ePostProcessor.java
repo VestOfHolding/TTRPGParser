@@ -1,4 +1,4 @@
-package org.voh.postprocess;
+package org.voh.postprocess.dnd5e;
 
 import org.voh.domain.dnd5e.Abilities5e;
 import org.voh.domain.dnd5e.Conditions5e;

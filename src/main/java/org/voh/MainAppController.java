@@ -8,33 +8,20 @@ import javafx.stage.FileChooser;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.fxmisc.richtext.CodeArea;
-import org.fxmisc.richtext.model.StyleSpans;
-import org.fxmisc.richtext.model.StyleSpansBuilder;
+import org.voh.domain.ContentType;
 import org.voh.domain.PublisherConfig;
 import org.voh.domain.SupportedSystems;
 import org.voh.postprocess.PdfGeneralPostProcessor;
 import org.voh.postprocess.PlainInputPostProcessor;
-import org.voh.postprocess.Dnd5ePostProcessor;
+import org.voh.postprocess.dnd5e.Dnd5ePostProcessor;
 import org.voh.postprocess.pf2e.Pf2ePostProcessor;
 import org.voh.stripper.RegionalPdfHtmlStripper;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainAppController {
-    private static final String TAG_PATTERN = "(</?\\w+>)";
-    private static final String ATTR_NAME_PATTERN = "(\\w+)(?=\\=)";
-    private static final String ATTR_VALUE_PATTERN = "=\"[^\"]*\"";
-    private static final Pattern HTML_PATTERN = Pattern.compile(
-            "(?<TAG>" + TAG_PATTERN + ")"
-                    + "|(?<ANAME>" + ATTR_NAME_PATTERN + ")"
-                    + "|(?<AVAL>" + ATTR_VALUE_PATTERN+ ")"
-    );
 
     @FXML
     public SplitPane mainAppWindow;
@@ -54,6 +41,8 @@ public class MainAppController {
     public ComboBox<String> systemDropdown;
     @FXML
     public ComboBox<String> publisherDropdown;
+    @FXML
+    public ComboBox<String> contentTypeDropdown;
 
     @FXML
     public Button parseInputButton;
@@ -154,6 +143,9 @@ public class MainAppController {
         publisherDropdown.setItems(FXCollections.observableArrayList(PublisherConfig.displayNames()));
         publisherDropdown.getSelectionModel().select(PublisherConfig.defaultDisplayName());
 
+        contentTypeDropdown.setItems(FXCollections.observableArrayList(ContentType.displayNames()));
+        contentTypeDropdown.getSelectionModel().select(ContentType.defaultDisplayName());
+
         attachSubscription(inputBox);
         attachSubscription(outputBox);
     }
@@ -161,30 +153,6 @@ public class MainAppController {
     private void attachSubscription(CodeArea codeArea) {
         codeArea.richChanges()
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved()))
-                .successionEnds(Duration.ofMillis(300))
-                .subscribe(ch -> codeArea.setStyleSpans(
-                        0, computeHighlighting(codeArea.getText())));
+                .successionEnds(Duration.ofMillis(300));
     }
-
-    private static StyleSpans<Collection<String>> computeHighlighting(String text) {
-        Matcher matcher = HTML_PATTERN.matcher(text);
-        int lastKwEnd = 0;
-        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-
-        while(matcher.find()) {
-            String styleClass =
-                    matcher.group("TAG")  != null ? "tag" :
-                            matcher.group("ANAME")!= null ? "attr-name" :
-                                    matcher.group("AVAL") != null ? "attr-value" :
-                                            null;
-
-            spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
-            spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
-            lastKwEnd = matcher.end();
-        }
-        spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
-        return spansBuilder.create();
-    }
-
-
 }
